@@ -4,9 +4,11 @@ import com.example.isharelife.model.post.CommentLike;
 import com.example.isharelife.repository.post.ICommentLikeRepository;
 import com.example.isharelife.service.post.ICommentLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CommentLikeService implements ICommentLikeService {
 
     @Autowired

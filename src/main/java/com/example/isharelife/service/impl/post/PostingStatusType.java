@@ -3,9 +3,11 @@ package com.example.isharelife.service.impl.post;
 import com.example.isharelife.repository.post.IPostingStatusTypeRepository;
 import com.example.isharelife.service.post.IPostingStatusTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class PostingStatusType implements IPostingStatusTypeService {
     @Autowired
     IPostingStatusTypeRepository postingStatusTypeRepository;
