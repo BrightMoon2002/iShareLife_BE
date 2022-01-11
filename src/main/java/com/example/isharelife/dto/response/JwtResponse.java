@@ -28,6 +28,13 @@ public class JwtResponse {
         this.roles = authorities;
     }
 
+    public JwtResponse(Long id, String token, String name, Collection<? extends GrantedAuthority> roles) {
+        this.id = id;
+        this.token = token;
+        this.name = name;
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }
