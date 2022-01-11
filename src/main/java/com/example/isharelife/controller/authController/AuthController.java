@@ -101,8 +101,8 @@ public class AuthController {
         //kho chứa cho authentication
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
-        AccountPrinciple userPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities()));
+        AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {

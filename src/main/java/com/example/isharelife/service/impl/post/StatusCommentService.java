@@ -4,9 +4,11 @@ import com.example.isharelife.model.post.StatusComment;
 import com.example.isharelife.repository.post.IStatusCommentRepository;
 import com.example.isharelife.service.post.IStatusCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class StatusCommentService implements IStatusCommentService {
 
     @Autowired
