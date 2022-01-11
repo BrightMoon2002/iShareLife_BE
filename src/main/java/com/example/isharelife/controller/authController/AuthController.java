@@ -22,10 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -106,6 +103,11 @@ public class AuthController {
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple userPrinciple = (AccountPrinciple) authentication.getPrincipal();
         return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities()));
+    }
+    @GetMapping
+    public ResponseEntity<?> showAllAccount() {
+        Iterable<Account> accounts = accountService.findAll();
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 //    @PutMapping("/change-avatar")
 //    public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
