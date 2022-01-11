@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Data
 public class PostingComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +21,61 @@ public class PostingComment {
 
     private Date dateOfComment;
 
+    public PostingComment() {
+    }
 
+    public PostingComment(Long id, Posting posting, String content, StatusComment statusComment, Date dateOfComment) {
+        this.id = id;
+        this.posting = posting;
+        this.content = content;
+        this.statusComment = statusComment;
+        this.dateOfComment = dateOfComment;
+    }
+
+    public PostingComment(Posting posting, String content, StatusComment statusComment, Date dateOfComment) {
+        this.posting = posting;
+        this.content = content;
+        this.statusComment = statusComment;
+        this.dateOfComment = dateOfComment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Posting getPosting() {
+        return posting;
+    }
+
+    public void setPosting(Posting posting) {
+        this.posting = posting;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public StatusComment getStatusComment() {
+        return statusComment;
+    }
+
+    public void setStatusComment(StatusComment statusComment) {
+        this.statusComment = statusComment;
+    }
+
+    public Date getDateOfComment() {
+        return dateOfComment;
+    }
+
+    public void setDateOfComment(Date dateOfComment) {
+        this.dateOfComment = dateOfComment;
+    }
 }
