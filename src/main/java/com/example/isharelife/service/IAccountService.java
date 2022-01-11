@@ -10,4 +10,5 @@ public interface IAccountService {
     Boolean existsByUsername(String username); // username đã có trong DB chưa, khi tạo dữ liệu
     Boolean existsByEmail(String email); //email đã có trong DB chưa
     Account save(Account account);
+    Iterable<Account> findAll();
 }

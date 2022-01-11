@@ -9,15 +9,16 @@ public class JwtResponse {
     private String token;
     private String type = "Bearer";
     private String name;
+    private String avatar;
     private Collection<? extends GrantedAuthority> roles;
 
     public JwtResponse() {
     }
 
-    public JwtResponse(Long id, String token, String type, String name, Collection<? extends GrantedAuthority> roles) {
+    public JwtResponse(Long id, String token, String avatar, String name, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.token = token;
-        this.type = type;
+        this.avatar = avatar;
         this.name = name;
         this.roles = roles;
     }
@@ -26,6 +27,22 @@ public class JwtResponse {
         this.token = token;
         this.name = name;
         this.roles = authorities;
+    }
+
+    public JwtResponse(Long id, String token, String name, Collection<? extends GrantedAuthority> roles) {
+        this.id = id;
+        this.token = token;
+        this.name = name;
+        this.roles = roles;
+    }
+
+    public JwtResponse(Long id, String token, String type, String name, String avatar, Collection<? extends GrantedAuthority> roles) {
+        this.id = id;
+        this.token = token;
+        this.type = type;
+        this.name = name;
+        this.avatar = avatar;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -58,6 +75,18 @@ public class JwtResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public JwtResponse(String avatar) {
+        this.avatar = avatar;
     }
 
     public Collection<? extends GrantedAuthority> getRoles() {

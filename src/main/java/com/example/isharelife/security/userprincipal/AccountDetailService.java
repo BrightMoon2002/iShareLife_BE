@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 @Service
 public class AccountDetailService implements UserDetailsService {
@@ -18,16 +18,12 @@ public class AccountDetailService implements UserDetailsService {
     IAccountRepository accountRepository;
     @Autowired
     AccountServiceImpl accountService;
-
-    //hàm này là tìm xem user có tồn tại trên db không, vì có kết nối db nên có thêm anotation Transactional
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found -> username or password"+username));
-        //nếu có username thì build 1 cái pricipal
-        return AccountPrinciple.build(account);
+        Account user = accountRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("User not found -> username or password"+username));
+        return AccountPrinciple.build(user);
     }
-
     //HAM LAY RA USER HIEN TAI DE THUC HIEN THAO TAC VOI DB
     public Account getCurrentUser(){
         Optional<Account> user;

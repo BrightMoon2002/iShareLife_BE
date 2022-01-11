@@ -19,7 +19,6 @@ public class AccountPrinciple implements UserDetails {
     private String password;
     private String avatar;
     private Collection<? extends GrantedAuthority> roles;
-
     public AccountPrinciple(Long id, String name, String username, String email, String password, String avatar, Collection<? extends GrantedAuthority> roles) {
         this.id = id;
         this.name = name;
@@ -29,19 +28,9 @@ public class AccountPrinciple implements UserDetails {
         this.avatar = avatar;
         this.roles = roles;
     }
-
-    public AccountPrinciple() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public static AccountPrinciple build(Account account) {
-        List<GrantedAuthority> authorities = account.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+    public static AccountPrinciple build(Account account){
+        List<GrantedAuthority> authorities = account.getRoles().stream().map(role->
+                new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
         return new AccountPrinciple(
                 account.getId(),
                 account.getName(),
@@ -88,4 +77,51 @@ public class AccountPrinciple implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection<? extends GrantedAuthority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+        this.roles = roles;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
