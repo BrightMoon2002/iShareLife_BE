@@ -18,4 +18,35 @@ public class RelationshipAccounts {
     @ManyToOne(targetEntity = Account.class)
     private Account account2;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RelationshipType getRelationshipType() {
+        return relationshipType;
+    }
+
+    public void setRelationshipType(RelationshipType relationshipType) {
+        this.relationshipType = relationshipType;
+    }
+
+    public Account getAccount1() {
+        return account1;
+    }
+
+    public void setAccount1(Account account1) {
+        this.account1 = account1;
+    }
+
+    public Account getAccount2() {
+        return account2;
+    }
+
+    public void setAccount2(Account account2) {
+        this.account2 = account2;
+    }
 }
