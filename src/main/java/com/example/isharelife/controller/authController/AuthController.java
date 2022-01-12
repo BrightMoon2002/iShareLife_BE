@@ -110,6 +110,15 @@ public class AuthController {
         Iterable<Account> accounts = accountService.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
+    @GetMapping("/account-details")
+    public ResponseEntity<?> findAccountById() {
+        Account account = accountDetailService.getCurrentUser();
+        if (account == null) {
+            return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
     @PutMapping("/change-avatar")
     public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
         Account account = accountDetailService.getCurrentUser();
