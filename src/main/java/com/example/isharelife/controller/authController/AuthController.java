@@ -1,5 +1,6 @@
 package com.example.isharelife.controller.authController;
 
+import com.example.isharelife.dto.request.ChangeAvatar;
 import com.example.isharelife.dto.request.SignInForm;
 import com.example.isharelife.dto.request.SignUpForm;
 import com.example.isharelife.dto.response.JwtResponse;
@@ -102,21 +103,42 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getAvatar(), accountPrinciple.getName(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
         Iterable<Account> accounts = accountService.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
-//    @PutMapping("/change-avatar")
-//    public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
-//        User user = userDetailsService.;
-//        if(user.getUsername().equals("Anonymous")){
-//            return new ResponseEntity<>(new ResponMessage("Please login!"), HttpStatus.OK);
-//        }
-//        user.setAvatar(changeAvatar.getAvatar());
-//        userService.save(user);
-//        return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.OK);
-//    }
+    @PutMapping("/change-avatar")
+    public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
+        Account account = accountDetailService.getCurrentUser();
+        System.out.println(account.getUsername());
+        System.out.println(account.getName());
+        System.out.println(account.getAvatar());
+        System.out.println(account.getId());
+        if(account.getUsername().equals("Anonymous")){
+            return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
+        }
+        account.setAvatar(changeAvatar.getAvatar());
+        accountService.save(account);
+        return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
+    }
+
+    @PutMapping("/change-info")
+    public ResponseEntity<?> updateInfo(@RequestBody Account account) {
+        Account accountCurrent = accountDetailService.getCurrentUser();
+    if (accountCurrent.getUsername().equals("Anonymous")) {
+        return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
+    }
+    accountCurrent.setName(account.getName());
+    accountCurrent.setEmail(account.getEmail());
+    accountCurrent.setPassword(account.getPassword());
+    accountCurrent.setUsername(account.getUsername());
+    accountCurrent.setAddress(account.getAddress());
+    accountCurrent.setPhone(account.getPhone());
+    accountCurrent.setHobbies(account.getHobbies());
+    accountService.save(accountCurrent);
+    return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
+    }
 }
