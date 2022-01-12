@@ -1,5 +1,6 @@
 package com.example.isharelife.model.post;
 
+import com.example.isharelife.model.account.Account;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,22 +22,27 @@ public class PostingComment {
 
     private Date dateOfComment;
 
+    @ManyToOne(targetEntity = Account.class)
+    private Account owner;
+
     public PostingComment() {
     }
 
-    public PostingComment(Long id, Posting posting, String content, StatusComment statusComment, Date dateOfComment) {
+    public PostingComment(Long id, Posting posting, String content, StatusComment statusComment, Date dateOfComment, Account owner) {
         this.id = id;
         this.posting = posting;
         this.content = content;
         this.statusComment = statusComment;
         this.dateOfComment = dateOfComment;
+        this.owner = owner;
     }
 
-    public PostingComment(Posting posting, String content, StatusComment statusComment, Date dateOfComment) {
+    public PostingComment(Posting posting, String content, StatusComment statusComment, Date dateOfComment, Account owner) {
         this.posting = posting;
         this.content = content;
         this.statusComment = statusComment;
         this.dateOfComment = dateOfComment;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -77,5 +83,12 @@ public class PostingComment {
 
     public void setDateOfComment(Date dateOfComment) {
         this.dateOfComment = dateOfComment;
+    }
+
+    public Account getOwner() {
+        return owner;
+    }
+    public void setOwner(Account owner) {
+        this.owner = owner;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.isharelife.service.impl.post;
 
+import com.example.isharelife.model.account.Account;
 import com.example.isharelife.model.post.PostLike;
 import com.example.isharelife.repository.post.IPostLikeRepository;
 import com.example.isharelife.service.post.IPostLikeService;
@@ -36,5 +37,10 @@ public class PostLikeService implements IPostLikeService {
     @Override
     public Integer countPostLikeByPostingId(Long id) {
         return postLikeRepository.countPostLikeByPostingId(id);
+    }
+
+    @Override
+    public Boolean existsByPostingIdAndOwner(Long id, Account account) {
+        return postLikeRepository.existsByPostingIdAndOwner(id, account);
     }
 }
