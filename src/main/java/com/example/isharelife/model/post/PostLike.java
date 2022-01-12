@@ -1,7 +1,6 @@
 package com.example.isharelife.model.post;
 
 import com.example.isharelife.model.account.Account;
-import javafx.geometry.Pos;
 import lombok.Data;
 
 import javax.persistence.*;
