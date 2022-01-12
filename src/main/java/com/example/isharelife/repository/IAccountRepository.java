@@ -12,4 +12,5 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     Boolean existsByUsername(String username);// username đã có trong DB chưa, khi tạo dữ liệu
     Boolean existsByEmail(String email);// email đã có trong DB chưa
     Account save(Account account);
+    Optional<Account> findAccountById(Long id);
 }
