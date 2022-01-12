@@ -11,4 +11,5 @@ public interface IAccountService {
     Boolean existsByEmail(String email); //email đã có trong DB chưa
     Account save(Account account);
     Iterable<Account> findAll();
+    Optional<Account> findAccountById(Long id);
 }
