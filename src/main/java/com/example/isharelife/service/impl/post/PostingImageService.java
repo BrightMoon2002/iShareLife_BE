@@ -6,6 +6,7 @@ import com.example.isharelife.service.post.IPostingImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class PostingImageService implements IPostingImageService {
@@ -30,5 +31,10 @@ public class PostingImageService implements IPostingImageService {
     @Override
     public void remove(Long id) {
         postingImageRepository.deleteById(id);
+    }
+
+    @Override
+    public List<String> findAllByPostingId(Long id) {
+        return postingImageRepository.findAllUrlByPostingId(id);
     }
 }

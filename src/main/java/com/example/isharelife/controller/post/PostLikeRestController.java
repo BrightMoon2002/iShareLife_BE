@@ -55,4 +55,11 @@ public class PostLikeRestController {
         return new ResponseEntity<>(postLikeOptional.get(), HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/like/{id}")
+    public ResponseEntity<Integer> getLikesByPosting(@PathVariable Long id) {
+        Integer like = 0;
+        like = postLikeService.countPostLikeByPostingId(id);
+        return new ResponseEntity<>(like, HttpStatus.OK);
+    }
+
 }
