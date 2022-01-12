@@ -153,7 +153,7 @@ public class AuthController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> showAccountByIdOther(@RequestParam Long id) {
+    public ResponseEntity<?> showAccountByIdOther(@PathVariable Long id) {
         Optional<Account> accountOptional = accountService.findAccountById(id);
         if (!accountOptional.isPresent()) {
             return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
