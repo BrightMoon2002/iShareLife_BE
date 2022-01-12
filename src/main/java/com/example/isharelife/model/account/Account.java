@@ -43,6 +43,8 @@ public class Account {
     private String phone;
     private String address;
     private String hobbies;
+    @ManyToOne
+    private Gender gender;
 
     public Account(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles) {
         this.id = id;
@@ -162,5 +164,13 @@ public class Account {
 
     public void setHobbies(String hobbies) {
         this.hobbies = hobbies;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
