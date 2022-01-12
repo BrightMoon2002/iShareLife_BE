@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -110,6 +111,15 @@ public class AuthController {
         Iterable<Account> accounts = accountService.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
+    @GetMapping("/account-details")
+    public ResponseEntity<?> findAccountById() {
+        Account account = accountDetailService.getCurrentUser();
+        if (account == null) {
+            return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
     @PutMapping("/change-avatar")
     public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
         Account account = accountDetailService.getCurrentUser();
@@ -140,5 +150,14 @@ public class AuthController {
     accountCurrent.setHobbies(account.getHobbies());
     accountService.save(accountCurrent);
     return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showAccountByIdOther(@RequestParam Long id) {
+        Optional<Account> accountOptional = accountService.findAccountById(id);
+        if (!accountOptional.isPresent()) {
+            return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
     }
 }
