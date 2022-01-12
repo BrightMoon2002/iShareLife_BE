@@ -71,5 +71,6 @@ public class RelationshipRestController {
             return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
         }
 
+
     }
 }
