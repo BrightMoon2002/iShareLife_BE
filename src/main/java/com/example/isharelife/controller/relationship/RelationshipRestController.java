@@ -5,6 +5,7 @@ import com.example.isharelife.model.account.Account;
 import com.example.isharelife.model.relationship.RelationshipAccounts;
 import com.example.isharelife.model.relationship.RelationshipType;
 import com.example.isharelife.security.userprincipal.AccountDetailService;
+import com.example.isharelife.service.IAccountService;
 import com.example.isharelife.service.relationship.IRelationshipAccountService;
 import com.example.isharelife.service.relationship.IRelationshipTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class RelationshipRestController {
 
     @Autowired
     IRelationshipTypeService relationshipTypeService;
+
+    @Autowired
+    IAccountService accountService;
 
     @GetMapping("/showPending")
     public ResponseEntity<?> allPending(){
@@ -70,6 +74,9 @@ public class RelationshipRestController {
         if(account.getUsername().equals("anonymous")){
             return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
         }
+        Account friend=accountService.findAccountById(id).get();
+        RelationshipType relationshipType=relationshipTypeService.findById(Long.valueOf(1)).get();
+        RelationshipAccounts relationshipAccounts=new RelationshipAccounts(relationshipType,account,friend);
 
 
     }
