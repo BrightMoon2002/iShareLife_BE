@@ -18,6 +18,16 @@ public class RelationshipAccounts {
     @ManyToOne(targetEntity = Account.class)
     private Account account2;
 
+    public RelationshipAccounts() {
+    }
+
+    public RelationshipAccounts(Long id, RelationshipType relationshipType, Account account1, Account account2) {
+        this.id = id;
+        this.relationshipType = relationshipType;
+        this.account1 = account1;
+        this.account2 = account2;
+    }
+
     public RelationshipAccounts(RelationshipType relationshipType, Account account1, Account account2) {
         this.relationshipType = relationshipType;
         this.account1 = account1;

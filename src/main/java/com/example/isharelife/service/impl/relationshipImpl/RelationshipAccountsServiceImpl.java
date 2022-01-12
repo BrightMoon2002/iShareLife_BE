@@ -47,8 +47,13 @@ public class RelationshipAccountsServiceImpl implements IRelationshipAccountServ
 
     @Override
     public Optional<RelationshipAccounts> findByAccount1IdAndAccount2Id(Long id1, Long id2) {
-        return relationshipAccountsRepository.findByAccount1IdAndAccount2Id(id1,id2);
+        return relationshipAccountsRepository.findRelationshipAccountsByAccount1_IdAndAccount2_Id(id1,id2);
     }
+
+//    @Override
+//    public Optional<RelationshipAccounts> findRelationship(Long id1, Long id2) {
+//        return relationshipAccountsRepository.findRelationshipAccountsByAccount1_IdAndAccount2_Id(id1,id2);
+//    }
 
     @Override
     public void changeRelationship(Long Rid, Long id) {

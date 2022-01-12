@@ -17,7 +17,11 @@ public interface IRelationshipAccountsRepository extends JpaRepository<Relations
 
     Iterable<RelationshipAccounts> findAllByAccount1AndRelationshipTypeId(Account account1,Long id);
 
-    Optional<RelationshipAccounts> findByAccount1IdAndAccount2Id(Long id1,Long id2);
+//    @Query(value = "select * from relationship_accounts where account1_id= :id1 and account2_id= :id2 ",nativeQuery = true)
+//    Optional<RelationshipAccounts> findRelationship(@Param("id1") int id1,@Param("id2") int id2);
+    Optional<RelationshipAccounts> findRelationshipAccountsByAccount1_IdAndAccount2_Id(Long id1,Long id2);
+
+
     @Modifying(clearAutomatically = true)
     @Query(value = "update relationship_accounts set relationship_type_id = :Rid where id = :id",nativeQuery = true)
     void changeRelationship(@Param("Rid") Long Rid,@Param("id") Long id);

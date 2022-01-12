@@ -12,6 +12,8 @@ public interface IRelationshipAccountService extends IGeneralService<Relationshi
     Iterable<RelationshipAccounts> findAllByAccount2AndRelationshipType(Account account2, Long id);
     Iterable<RelationshipAccounts> findAllByAccount1AndRelationshipType(Account account1,Long id);
     Optional<RelationshipAccounts> findByAccount1IdAndAccount2Id(Long id1, Long id2);
+//    Optional<RelationshipAccounts> findRelationship(int id1,int id2);
+
     void changeRelationship(Long Rid,Long id);
 
 }
