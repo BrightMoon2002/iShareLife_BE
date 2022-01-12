@@ -32,4 +32,9 @@ public class PostLikeService implements IPostLikeService {
     public void remove(Long id) {
         postLikeRepository.deleteById(id);
     }
+
+    @Override
+    public Integer countPostLikeByPostingId(Long id) {
+        return postLikeRepository.countPostLikeByPostingId(id);
+    }
 }
