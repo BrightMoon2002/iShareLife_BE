@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,5 +55,11 @@ public class PostingImageRestController {
         }
         postingImageService.remove(id);
         return new ResponseEntity<>(postingImageOptional.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/posting/{id}")
+    public ResponseEntity<List<String>> findAllUrlByPostingId(@PathVariable Long id) {
+        List<String> postingImageList = postingImageService.findAllByPostingId(id);
+        return new ResponseEntity<>(postingImageList, HttpStatus.OK);
     }
 }
