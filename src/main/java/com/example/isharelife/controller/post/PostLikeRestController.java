@@ -1,7 +1,9 @@
 package com.example.isharelife.controller.post;
 
+import com.example.isharelife.model.account.Account;
 import com.example.isharelife.model.post.PostLike;
 import com.example.isharelife.model.post.PostingStatusType;
+import com.example.isharelife.service.IAccountService;
 import com.example.isharelife.service.post.IPostLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ public class PostLikeRestController {
 
     @Autowired
     IPostLikeService postLikeService;
+
+    @Autowired
+    IAccountService accountService;
 
     @GetMapping
     public ResponseEntity<Iterable<PostLike>> findAllPostLikeType() {
@@ -55,4 +60,16 @@ public class PostLikeRestController {
         return new ResponseEntity<>(postLikeOptional.get(), HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/like/{id}")
+    public ResponseEntity<Integer> getLikesByPosting(@PathVariable Long id) {
+        Integer like = 0;
+        like = postLikeService.countPostLikeByPostingId(id);
+        return new ResponseEntity<>(like, HttpStatus.OK);
+    }
+
+    @GetMapping("/liked/{pId}/{accId}")
+    public ResponseEntity<Boolean> isLiked(@PathVariable Long pId, @PathVariable Long accId) {
+        Account account = accountService.findAccountById(accId).get();
+        return new ResponseEntity<>(postLikeService.existsByPostingIdAndOwner(pId, account), HttpStatus.OK);
+    }
 }
