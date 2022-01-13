@@ -14,6 +14,6 @@ public interface IRelationshipAccountService extends IGeneralService<Relationshi
     Optional<RelationshipAccounts> findByAccount1IdAndAccount2Id(Long id1, Long id2);
 //    Optional<RelationshipAccounts> findRelationship(int id1,int id2);
 
-    void changeRelationship(Long Rid,Long id);
+//    void changeRelationship(Long Rid,Long id);
 
 }
