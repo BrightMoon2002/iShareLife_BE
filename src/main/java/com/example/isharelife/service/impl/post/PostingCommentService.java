@@ -38,4 +38,9 @@ public class PostingCommentService implements IPostingCommentService {
     public Iterable<PostingComment> findPostingCommentsByPostingId(Long id) {
         return postingCommentRepository.findPostingCommentsByPostingId(id);
     }
+
+    @Override
+    public Iterable<PostingComment> findPostingCommentsByPostingIdLimit(Long id) {
+        return postingCommentRepository.findPostingCommentsByPostingIdLimit(id);
+    }
 }

@@ -54,9 +54,15 @@ public class PostingCommentRestController {
         return new ResponseEntity<>(postingCommentOptional.get(), HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("/post/all/{id}")
     public ResponseEntity<Iterable<PostingComment>> getCommentByPostingId(@PathVariable Long id) {
         Iterable<PostingComment> postingComments = postingCommentService.findPostingCommentsByPostingId(id);
+        return new ResponseEntity<>(postingComments, HttpStatus.OK);
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Iterable<PostingComment>> getCommentByPostingIdLimit(@PathVariable Long id) {
+        Iterable<PostingComment> postingComments = postingCommentService.findPostingCommentsByPostingIdLimit(id);
         return new ResponseEntity<>(postingComments, HttpStatus.OK);
     }
 }
