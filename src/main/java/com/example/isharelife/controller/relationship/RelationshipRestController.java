@@ -13,6 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/relationship")
@@ -28,7 +32,7 @@ public class RelationshipRestController {
 
     @Autowired
     IAccountService accountService;
-
+// Danh sách yêu cầu kết bạn nhận được
     @GetMapping("/showPending")
     public ResponseEntity<?> allPending() {
         Account account = accountDetailService.getCurrentUser();
@@ -38,7 +42,7 @@ public class RelationshipRestController {
         Iterable<RelationshipAccounts> listPending = relationshipAccountService.findAllByAccount2AndRelationshipType(account, Long.valueOf(1));
         return new ResponseEntity<>(listPending, HttpStatus.OK);
     }
-
+// Danh sách lời mời kết bạn mình gửi đi
     @GetMapping("/showListAdd")
     public ResponseEntity<?> allRequest() {
         Account account = accountDetailService.getCurrentUser();
@@ -48,7 +52,7 @@ public class RelationshipRestController {
         Iterable<RelationshipAccounts> listAdd = relationshipAccountService.findAllByAccount1AndRelationshipType(account, Long.valueOf(1));
         return new ResponseEntity<>(listAdd, HttpStatus.OK);
     }
-
+// Đồng ý kết bạn
     @PutMapping("/accept/{id1}")
     public ResponseEntity<?> accept(@PathVariable Long id1) {
         Account account = accountDetailService.getCurrentUser();
@@ -70,7 +74,7 @@ public class RelationshipRestController {
         relationshipAccountService.save(relationshipAccounts);
         return new ResponseEntity<>(relationshipAccounts, HttpStatus.OK);
     }
-
+//Gửi yêu cầu kết bạn
     @PostMapping("/add/{id}")
     public ResponseEntity<?> addFriend(@PathVariable Long id) {
         Account account = accountDetailService.getCurrentUser();
@@ -83,7 +87,7 @@ public class RelationshipRestController {
         relationshipAccountService.save(relationshipAccounts);
         return new ResponseEntity<>(relationshipAccounts, HttpStatus.OK);
     }
-
+// Từ chối yêu cầu kết bạn
     @DeleteMapping("/refused/{id}")
     public ResponseEntity<?>refused(@PathVariable Long id){
         Account account = accountDetailService.getCurrentUser();
@@ -94,7 +98,7 @@ public class RelationshipRestController {
         relationshipAccountService.remove(relationshipAccounts.getId());
         return new ResponseEntity<>(new ResponseMessage("refused complete"),HttpStatus.OK);
     }
-
+//    xóa kết bạn
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
         Account account = accountDetailService.getCurrentUser();
@@ -107,7 +111,7 @@ public class RelationshipRestController {
         relationshipAccountService.remove(relationshipAccount2.getId());
         return new ResponseEntity<>(new ResponseMessage("delete Friend complete"),HttpStatus.OK);
     }
-
+//    list bạn bè
     @GetMapping("/listFriend")
     public ResponseEntity<?>ListFriend(){
         Account account = accountDetailService.getCurrentUser();
@@ -116,5 +120,37 @@ public class RelationshipRestController {
         }
         Iterable<RelationshipAccounts> listFriend=relationshipAccountService.findAllByAccount1AndRelationshipType(account,Long.valueOf(2));
         return new ResponseEntity<>(listFriend,HttpStatus.OK);
+    }
+// Danh sách bạn bè chung
+    @GetMapping("/mutualFriend/{id}")
+    public ResponseEntity<?>ListMutualFriend(@PathVariable Long id){
+        Account account = accountDetailService.getCurrentUser();
+        if (account.getUsername().equals("anonymous")) {
+            return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
+        }
+        Account friendAccount=accountService.findAccountById(id).get();
+        Iterable<RelationshipAccounts> listFriend1=relationshipAccountService.findAllByAccount1AndRelationshipType(account,Long.valueOf(2));
+
+        List<RelationshipAccounts> list1 = new ArrayList<RelationshipAccounts>();
+        for (RelationshipAccounts str : listFriend1) {
+            list1.add(str);
+        }
+        Iterable<RelationshipAccounts> listFriend2=relationshipAccountService.findAllByAccount1AndRelationshipType(friendAccount,Long.valueOf(2));
+        List<RelationshipAccounts> list2 = new ArrayList<RelationshipAccounts>();
+        for (RelationshipAccounts str : listFriend2) {
+            list2.add(str);
+        }
+        List<Account> mutualFriend = new ArrayList<Account>();
+
+        for (int i = 0; i < list1.size(); i++) {
+            for (int j = 0; j < list2.size(); j++) {
+                if(list1.get(i).getAccount2().getId()==list2.get(j).getAccount2().getId()){
+                    mutualFriend.add(list1.get(i).getAccount2());
+                    break;
+                }
+            }
+        }
+
+        return new ResponseEntity<>(mutualFriend,HttpStatus.OK);
     }
 }

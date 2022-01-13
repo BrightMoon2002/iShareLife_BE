@@ -22,7 +22,9 @@ public interface IRelationshipAccountsRepository extends JpaRepository<Relations
     Optional<RelationshipAccounts> findRelationshipAccountsByAccount1_IdAndAccount2_Id(Long id1,Long id2);
 
 
-    @Modifying(clearAutomatically = true)
-    @Query(value = "update relationship_accounts set relationship_type_id = :Rid where id = :id",nativeQuery = true)
-    void changeRelationship(@Param("Rid") Long Rid,@Param("id") Long id);
+//    @Modifying(clearAutomatically = true)
+//    @Query(value = "update relationship_accounts set relationship_type_id = :Rid where id = :id",nativeQuery = true)
+//    void changeRelationship(@Param("Rid") Long Rid,@Param("id") Long id);
+
+
 }
