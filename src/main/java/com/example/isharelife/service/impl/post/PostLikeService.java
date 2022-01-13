@@ -43,4 +43,9 @@ public class PostLikeService implements IPostLikeService {
     public Boolean existsByPostingIdAndOwner(Long id, Account account) {
         return postLikeRepository.existsByPostingIdAndOwner(id, account);
     }
+
+    @Override
+    public Optional<PostLike> findPostLikeByPostingIdAndOwnerId(Long pId, Long accId) {
+        return postLikeRepository.findPostLikeByPostingIdAndOwnerId(pId, accId);
+    }
 }

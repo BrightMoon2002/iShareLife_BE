@@ -4,4 +4,5 @@ import com.example.isharelife.model.post.PostingComment;
 import com.example.isharelife.service.IGeneralService;
 
 public interface IPostingCommentService extends IGeneralService<PostingComment> {
+    Iterable<PostingComment> findPostingCommentsByPostingId(Long id);
 }

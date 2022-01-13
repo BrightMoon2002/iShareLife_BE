@@ -2,9 +2,11 @@ package com.example.isharelife.controller.post;
 
 import com.example.isharelife.model.account.Account;
 import com.example.isharelife.model.post.PostLike;
+import com.example.isharelife.model.post.Posting;
 import com.example.isharelife.model.post.PostingStatusType;
 import com.example.isharelife.service.IAccountService;
 import com.example.isharelife.service.post.IPostLikeService;
+import com.example.isharelife.service.post.IPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import java.util.Optional;
 @CrossOrigin("*")
 @RequestMapping("/api/postLike")
 public class PostLikeRestController {
+
+    @Autowired
+    IPostingService postingService;
 
     @Autowired
     IPostLikeService postLikeService;
@@ -71,5 +76,22 @@ public class PostLikeRestController {
     public ResponseEntity<Boolean> isLiked(@PathVariable Long pId, @PathVariable Long accId) {
         Account account = accountService.findAccountById(accId).get();
         return new ResponseEntity<>(postLikeService.existsByPostingIdAndOwner(pId, account), HttpStatus.OK);
+    }
+
+    @PostMapping("/doLike/{pId}/{accId}")
+    public ResponseEntity<?> doLike(@PathVariable Long pId, @PathVariable Long accId) {
+        Posting posting = postingService.findById(pId).get();
+        Account account = accountService.findAccountById(accId).get();
+        PostLike postLike = new PostLike(posting, account);
+        postLikeService.save(postLike);
+        System.out.println("dittttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/unLike/{pId}/{accId}")
+    public ResponseEntity<?> unLike(@PathVariable Long pId, @PathVariable Long accId) {
+        PostLike postLike = postLikeService.findPostLikeByPostingIdAndOwnerId(pId, accId).get();
+        postLikeService.remove(postLike.getId());
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

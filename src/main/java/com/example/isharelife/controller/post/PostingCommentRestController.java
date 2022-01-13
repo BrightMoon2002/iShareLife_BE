@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping
+@RequestMapping("/api/postingComment")
 public class PostingCommentRestController {
 
     @Autowired
@@ -52,5 +52,11 @@ public class PostingCommentRestController {
         }
         postingCommentService.remove(id);
         return new ResponseEntity<>(postingCommentOptional.get(), HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/post/{id}")
+    public ResponseEntity<Iterable<PostingComment>> getCommentByPostingId(@PathVariable Long id) {
+        Iterable<PostingComment> postingComments = postingCommentService.findPostingCommentsByPostingId(id);
+        return new ResponseEntity<>(postingComments, HttpStatus.OK);
     }
 }

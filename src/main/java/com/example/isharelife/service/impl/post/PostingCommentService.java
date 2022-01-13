@@ -33,4 +33,9 @@ public class PostingCommentService implements IPostingCommentService {
     public void remove(Long id) {
         postingCommentRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<PostingComment> findPostingCommentsByPostingId(Long id) {
+        return postingCommentRepository.findPostingCommentsByPostingId(id);
+    }
 }
