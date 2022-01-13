@@ -2,6 +2,7 @@ package com.example.isharelife.model.post;
 
 import com.example.isharelife.model.account.Account;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
