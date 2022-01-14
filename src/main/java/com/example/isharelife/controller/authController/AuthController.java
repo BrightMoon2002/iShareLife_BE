@@ -104,7 +104,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getAvatar(), accountPrinciple.getName(), accountPrinciple.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
