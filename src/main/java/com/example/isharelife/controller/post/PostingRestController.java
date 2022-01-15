@@ -54,5 +54,4 @@ public class PostingRestController {
         return new ResponseEntity<>(postingOptional.get(), HttpStatus.NO_CONTENT);
     }
 
-
 }
