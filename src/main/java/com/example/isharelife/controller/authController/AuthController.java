@@ -1,6 +1,7 @@
 package com.example.isharelife.controller.authController;
 
 import com.example.isharelife.dto.request.ChangeAvatar;
+import com.example.isharelife.dto.request.ChangePassword;
 import com.example.isharelife.dto.request.SignInForm;
 import com.example.isharelife.dto.request.SignUpForm;
 import com.example.isharelife.dto.response.JwtResponse;
@@ -21,6 +22,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -159,5 +161,18 @@ public class AuthController {
             return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
         }
         return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePassword changePassword) {
+        Account accountCurrent = accountDetailService.getCurrentUser();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(changePassword.getOldPassword(), accountCurrent.getPassword())) {
+            return new ResponseEntity<>(new ResponseMessage("no_password"), HttpStatus.OK);
+        } else {
+            accountCurrent.setPassword(passwordEncoder.encode(changePassword.getNewPassword()));
+            accountService.save(accountCurrent);
+            return new ResponseEntity<>(new ResponseMessage("success"), HttpStatus.OK);
+        }
     }
 }
