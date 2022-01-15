@@ -23,22 +23,27 @@ public class Posting {
     @ManyToOne(targetEntity = PostingStatusType.class)
     private PostingStatusType postingStatusType;
 
+    @Lob
+    private String images;
+
     public Posting() {
     }
 
-    public Posting(Long id, Account owner, String content, Date dateOfPosting, PostingStatusType postingStatusType) {
+    public Posting(Long id, Account owner, String content, Date dateOfPosting, PostingStatusType postingStatusType, String images) {
         this.id = id;
         this.owner = owner;
         this.content = content;
         this.dateOfPosting = dateOfPosting;
         this.postingStatusType = postingStatusType;
+        this.images = images;
     }
 
-    public Posting(Account owner, String content, Date dateOfPosting, PostingStatusType postingStatusType) {
+    public Posting(Account owner, String content, Date dateOfPosting, PostingStatusType postingStatusType, String images) {
         this.owner = owner;
         this.content = content;
         this.dateOfPosting = dateOfPosting;
         this.postingStatusType = postingStatusType;
+        this.images = images;
     }
 
     public Long getId() {
@@ -79,5 +84,13 @@ public class Posting {
 
     public void setPostingStatusType(PostingStatusType postingStatusType) {
         this.postingStatusType = postingStatusType;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }
