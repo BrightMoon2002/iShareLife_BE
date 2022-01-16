@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -39,7 +40,12 @@ public class RelationshipRestController {
         if (account.getUsername().equals("anonymous")) {
             return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
         }
-        Iterable<RelationshipAccounts> listPending = relationshipAccountService.findAllByAccount2AndRelationshipType(account, Long.valueOf(1));
+        Iterable<RelationshipAccounts> list = relationshipAccountService.findAllByAccount2AndRelationshipType(account, Long.valueOf(1));
+        List<Account> listPending=new ArrayList<Account>();
+        for (RelationshipAccounts re: list
+        ) {
+            listPending.add(re.getAccount1());
+        }
         return new ResponseEntity<>(listPending, HttpStatus.OK);
     }
 // Danh sách lời mời kết bạn mình gửi đi
@@ -49,7 +55,12 @@ public class RelationshipRestController {
         if (account.getUsername().equals("anonymous")) {
             return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
         }
-        Iterable<RelationshipAccounts> listAdd = relationshipAccountService.findAllByAccount1AndRelationshipType(account, Long.valueOf(1));
+        Iterable<RelationshipAccounts> list = relationshipAccountService.findAllByAccount1AndRelationshipType(account, Long.valueOf(1));
+        List<Account> listAdd=new ArrayList<Account>();
+        for (RelationshipAccounts re: list
+        ) {
+            listAdd.add(re.getAccount2());
+        }
         return new ResponseEntity<>(listAdd, HttpStatus.OK);
     }
 // Đồng ý kết bạn
@@ -112,13 +123,15 @@ public class RelationshipRestController {
         return new ResponseEntity<>(new ResponseMessage("delete Friend complete"),HttpStatus.OK);
     }
 //    list bạn bè
-    @GetMapping("/listFriend")
-    public ResponseEntity<?>ListFriend(){
-        Account account = accountDetailService.getCurrentUser();
-        if (account.getUsername().equals("anonymous")) {
-            return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
+    @GetMapping("/listFriend/{id}")
+    public ResponseEntity<?>ListFriend(@PathVariable Long id){
+        Account account=accountService.findAccountById(id).get();
+        Iterable<RelationshipAccounts> list=relationshipAccountService.findAllByAccount1AndRelationshipType(account,Long.valueOf(2));
+        List<Account> listFriend=new ArrayList<Account>();
+        for (RelationshipAccounts re: list
+             ) {
+            listFriend.add(re.getAccount2());
         }
-        Iterable<RelationshipAccounts> listFriend=relationshipAccountService.findAllByAccount1AndRelationshipType(account,Long.valueOf(2));
         return new ResponseEntity<>(listFriend,HttpStatus.OK);
     }
 // Danh sách bạn bè chung
@@ -152,5 +165,29 @@ public class RelationshipRestController {
         }
 
         return new ResponseEntity<>(mutualFriend,HttpStatus.OK);
+    }
+
+//    check tình trạng quan hệ
+    @GetMapping("/checkRelationship/{id}")
+    public ResponseEntity<?> checkRelationship(@PathVariable Long id){
+        Account account = accountDetailService.getCurrentUser();
+        if (account.getUsername().equals("anonymous")) {
+            return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
+        }
+        Optional<RelationshipAccounts> relationshipAccounts= relationshipAccountService.findByAccount1IdAndAccount2Id(account.getId(),id);
+
+        if(relationshipAccounts.isPresent()) {
+            if (relationshipAccounts.get().getRelationshipType().getId() == 1) {
+                return new ResponseEntity<>(1,HttpStatus.OK);
+            }
+            if (relationshipAccounts.get().getRelationshipType().getId() == 2) {
+                return new ResponseEntity<>(2,HttpStatus.OK);
+            }
+            if (relationshipAccounts.get().getRelationshipType().getId() == 3) {
+                return new ResponseEntity<>(3,HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(0,HttpStatus.OK);
+
     }
 }

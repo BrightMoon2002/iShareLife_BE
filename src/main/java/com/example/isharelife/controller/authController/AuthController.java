@@ -103,7 +103,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getAvatar(), accountPrinciple.getName(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
+
+
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
@@ -140,19 +142,19 @@ public class AuthController {
     if (accountCurrent.getUsername().equals("Anonymous")) {
         return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
     }
-    if (changeInfo.getName() != null) {
+    if (changeInfo.getName() != ""){
         accountCurrent.setName(changeInfo.getName());
     }
-    if (changeInfo.getEmail() != null) {
+    if (changeInfo.getEmail() != "") {
         accountCurrent.setEmail(changeInfo.getEmail());
     }
-    if (changeInfo.getAddress() != null) {
+    if (changeInfo.getAddress() != "") {
         accountCurrent.setAddress(changeInfo.getAddress());
     }
-    if (changeInfo.getPhone() != null) {
+    if (changeInfo.getPhone() != "") {
         accountCurrent.setPhone(changeInfo.getPhone());
     }
-    if (changeInfo.getHobbies() != null) {
+    if (changeInfo.getHobbies() != "") {
         accountCurrent.setHobbies(changeInfo.getHobbies());
     }
     accountService.save(accountCurrent);

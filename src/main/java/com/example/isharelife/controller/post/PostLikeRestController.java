@@ -84,7 +84,6 @@ public class PostLikeRestController {
         Account account = accountService.findAccountById(accId).get();
         PostLike postLike = new PostLike(posting, account);
         postLikeService.save(postLike);
-        System.out.println("dittttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
