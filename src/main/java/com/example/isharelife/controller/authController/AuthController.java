@@ -1,9 +1,6 @@
 package com.example.isharelife.controller.authController;
 
-import com.example.isharelife.dto.request.ChangeAvatar;
-import com.example.isharelife.dto.request.ChangePassword;
-import com.example.isharelife.dto.request.SignInForm;
-import com.example.isharelife.dto.request.SignUpForm;
+import com.example.isharelife.dto.request.*;
 import com.example.isharelife.dto.response.JwtResponse;
 import com.example.isharelife.dto.response.ResponseMessage;
 import com.example.isharelife.model.account.Account;
@@ -106,7 +103,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getAvatar(), accountPrinciple.getName(), accountPrinciple.getAuthorities()));
+
+
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
@@ -138,18 +137,26 @@ public class AuthController {
     }
 
     @PutMapping("/change-info")
-    public ResponseEntity<?> updateInfo(@RequestBody Account account) {
+    public ResponseEntity<?> updateInfo(@RequestBody ChangeInfo changeInfo) {
         Account accountCurrent = accountDetailService.getCurrentUser();
     if (accountCurrent.getUsername().equals("Anonymous")) {
         return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
     }
-    accountCurrent.setName(account.getName());
-    accountCurrent.setEmail(account.getEmail());
-    accountCurrent.setPassword(account.getPassword());
-    accountCurrent.setUsername(account.getUsername());
-    accountCurrent.setAddress(account.getAddress());
-    accountCurrent.setPhone(account.getPhone());
-    accountCurrent.setHobbies(account.getHobbies());
+    if (changeInfo.getName() != ""){
+        accountCurrent.setName(changeInfo.getName());
+    }
+    if (changeInfo.getEmail() != "") {
+        accountCurrent.setEmail(changeInfo.getEmail());
+    }
+    if (changeInfo.getAddress() != "") {
+        accountCurrent.setAddress(changeInfo.getAddress());
+    }
+    if (changeInfo.getPhone() != "") {
+        accountCurrent.setPhone(changeInfo.getPhone());
+    }
+    if (changeInfo.getHobbies() != "") {
+        accountCurrent.setHobbies(changeInfo.getHobbies());
+    }
     accountService.save(accountCurrent);
     return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
     }
