@@ -49,4 +49,9 @@ public class PostingService implements IPostingService {
     public void remove(Long id) {
         postingRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Posting> findPostingsByContentContainsAndAndPostingStatusType(String content, Long id) {
+        return postingRepository.findPostingsByContentContainingAndAndPostingStatusTypeId(content,id);
+    }
 }
