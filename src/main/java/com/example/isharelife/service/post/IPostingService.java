@@ -4,5 +4,6 @@ import com.example.isharelife.model.post.Posting;
 import com.example.isharelife.service.IGeneralService;
 
 public interface IPostingService extends IGeneralService<Posting> {
+    Iterable<Posting> findPostingsByContentContainsAndAndPostingStatusType(String content,Long id);
 
 }
