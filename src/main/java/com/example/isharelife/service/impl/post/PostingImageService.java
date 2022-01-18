@@ -37,4 +37,9 @@ public class PostingImageService implements IPostingImageService {
     public List<String> findAllByPostingId(Long id) {
         return postingImageRepository.findAllUrlByPostingId(id);
     }
+
+    @Override
+    public void deletePostingImageByPostingId(Long id) {
+        postingImageRepository.deletePostingImageByPostingId(id);
+    }
 }

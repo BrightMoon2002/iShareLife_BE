@@ -1,8 +1,6 @@
 package com.example.isharelife.controller.authController;
 
-import com.example.isharelife.dto.request.ChangeAvatar;
-import com.example.isharelife.dto.request.SignInForm;
-import com.example.isharelife.dto.request.SignUpForm;
+import com.example.isharelife.dto.request.*;
 import com.example.isharelife.dto.response.JwtResponse;
 import com.example.isharelife.dto.response.ResponseMessage;
 import com.example.isharelife.model.account.Account;
@@ -21,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -104,7 +103,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.createToken(authentication);
         AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getAvatar(), accountPrinciple.getName(), accountPrinciple.getAuthorities()));
+
+
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
     }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
@@ -136,18 +137,26 @@ public class AuthController {
     }
 
     @PutMapping("/change-info")
-    public ResponseEntity<?> updateInfo(@RequestBody Account account) {
+    public ResponseEntity<?> updateInfo(@RequestBody ChangeInfo changeInfo) {
         Account accountCurrent = accountDetailService.getCurrentUser();
     if (accountCurrent.getUsername().equals("Anonymous")) {
         return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
     }
-    accountCurrent.setName(account.getName());
-    accountCurrent.setEmail(account.getEmail());
-    accountCurrent.setPassword(account.getPassword());
-    accountCurrent.setUsername(account.getUsername());
-    accountCurrent.setAddress(account.getAddress());
-    accountCurrent.setPhone(account.getPhone());
-    accountCurrent.setHobbies(account.getHobbies());
+    if (changeInfo.getName() != ""){
+        accountCurrent.setName(changeInfo.getName());
+    }
+    if (changeInfo.getEmail() != "") {
+        accountCurrent.setEmail(changeInfo.getEmail());
+    }
+    if (changeInfo.getAddress() != "") {
+        accountCurrent.setAddress(changeInfo.getAddress());
+    }
+    if (changeInfo.getPhone() != "") {
+        accountCurrent.setPhone(changeInfo.getPhone());
+    }
+    if (changeInfo.getHobbies() != "") {
+        accountCurrent.setHobbies(changeInfo.getHobbies());
+    }
     accountService.save(accountCurrent);
     return new ResponseEntity<>(new ResponseMessage("yes"), HttpStatus.OK);
     }
@@ -159,5 +168,18 @@ public class AuthController {
             return new ResponseEntity<>(new ResponseMessage("no_account"), HttpStatus.OK);
         }
         return new ResponseEntity<>(accountOptional.get(), HttpStatus.OK);
+    }
+
+    @PutMapping("change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePassword changePassword) {
+        Account accountCurrent = accountDetailService.getCurrentUser();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(changePassword.getOldPassword(), accountCurrent.getPassword())) {
+            return new ResponseEntity<>(new ResponseMessage("no_password"), HttpStatus.OK);
+        } else {
+            accountCurrent.setPassword(passwordEncoder.encode(changePassword.getNewPassword()));
+            accountService.save(accountCurrent);
+            return new ResponseEntity<>(new ResponseMessage("success"), HttpStatus.OK);
+        }
     }
 }
