@@ -1,6 +1,7 @@
 package com.example.isharelife.dto.response.mesage;
 
 public interface IMessageByAccountId {
-    Long getId_sender();
+    Long getIdSender();
     String getName();
+    String getAvatar();
 }
