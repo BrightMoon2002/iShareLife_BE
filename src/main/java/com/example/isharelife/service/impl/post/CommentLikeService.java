@@ -1,5 +1,6 @@
 package com.example.isharelife.service.impl.post;
 
+import com.example.isharelife.model.account.Account;
 import com.example.isharelife.model.post.CommentLike;
 import com.example.isharelife.repository.post.ICommentLikeRepository;
 import com.example.isharelife.service.post.ICommentLikeService;
@@ -32,5 +33,20 @@ public class CommentLikeService implements ICommentLikeService {
     @Override
     public void remove(Long id) {
         commentLikeRepository.deleteById(id);
+    }
+
+    @Override
+    public Integer countCommentLikeByPostingCommentId(Long id) {
+        return commentLikeRepository.countCommentLikeByPostingCommentId(id);
+    }
+
+    @Override
+    public Boolean existsByPostingCommentIdAndOwner(Long id, Account account) {
+        return commentLikeRepository.existsByPostingCommentIdAndOwner(id, account);
+    }
+
+    @Override
+    public Optional<CommentLike> findCommentLikeByPostingCommentIdAndOwnerId(Long cId, Long accId) {
+        return commentLikeRepository.findCommentLikeByPostingCommentIdAndOwnerId(cId, accId);
     }
 }
