@@ -4,9 +4,10 @@ import com.example.isharelife.model.chat_room.Message;
 import com.example.isharelife.repository.chat_room.IMessageSocketRepository;
 import com.example.isharelife.service.chat_room.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Service
 public class MessageServiceImpl implements IMessageService {
     @Autowired
     private IMessageSocketRepository messageSocketRepository;
