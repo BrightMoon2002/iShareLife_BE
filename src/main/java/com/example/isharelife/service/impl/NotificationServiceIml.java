@@ -38,4 +38,5 @@ public class NotificationServiceIml implements INotificationService {
     public Iterable<Notification> findAllByAccountOrderByIdDesc(Account account) {
         return notificationRepository.findAllByAccountOrderByIdDesc(account);
     }
+
 }

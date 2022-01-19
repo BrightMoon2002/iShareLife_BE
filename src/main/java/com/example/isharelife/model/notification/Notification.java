@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -26,6 +29,7 @@ public class Notification {
     @OneToOne
     @JoinColumn(name = "posting_id")
     private Posting posting;
+    private LocalDateTime date;
     private Boolean status;
 
 }

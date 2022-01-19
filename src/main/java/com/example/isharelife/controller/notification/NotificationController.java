@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/notification")
@@ -27,12 +29,20 @@ public class NotificationController {
     }
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Notification notification){
+        notification.setDate(LocalDateTime.now());
         notificationService.save(notification);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         notificationService.remove(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id){
+        Notification notification = notificationService.findById(id).get();
+        notification.setStatus(true);
+        notificationService.save(notification);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
