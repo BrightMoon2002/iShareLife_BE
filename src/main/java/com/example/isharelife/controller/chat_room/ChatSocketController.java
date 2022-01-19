@@ -9,6 +9,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @CrossOrigin("*")
 public class ChatSocketController {
@@ -18,6 +20,7 @@ public class ChatSocketController {
     @MessageMapping("/chats")
     @SendTo("/topic/chat")
     public Message createNewChatUsingSocket(Message message) {
+        message.setDateSend(LocalDateTime.now());
          messageService.save(message);
          return message;
     }
