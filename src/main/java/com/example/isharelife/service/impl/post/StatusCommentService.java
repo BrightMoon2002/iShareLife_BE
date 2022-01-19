@@ -25,8 +25,8 @@ public class StatusCommentService implements IStatusCommentService {
     }
 
     @Override
-    public void save(StatusComment statusComment) {
-        statusCommentRepository.save(statusComment);
+    public StatusComment save(StatusComment statusComment) {
+        return statusCommentRepository.save(statusComment);
     }
 
     @Override

@@ -23,8 +23,9 @@ public class PostingStatusType implements IPostingStatusTypeService {
     }
 
     @Override
-    public void save(com.example.isharelife.model.post.PostingStatusType postingStatusType) {
+    public com.example.isharelife.model.post.PostingStatusType save(com.example.isharelife.model.post.PostingStatusType postingStatusType) {
         postingStatusTypeRepository.save(postingStatusType);
+        return postingStatusType;
     }
 
     @Override

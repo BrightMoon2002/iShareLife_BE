@@ -25,8 +25,8 @@ public class StatusChatRoomMessageTypeServiceImpl implements IStatusChatRoomMess
     }
 
     @Override
-    public void save(StatusChatRoomMessageType statusChatRoomMessageType) {
-        statusChatRoomMessageTypeRepository.save(statusChatRoomMessageType);
+    public StatusChatRoomMessageType save(StatusChatRoomMessageType statusChatRoomMessageType) {
+      return statusChatRoomMessageTypeRepository.save(statusChatRoomMessageType);
     }
 
     @Override

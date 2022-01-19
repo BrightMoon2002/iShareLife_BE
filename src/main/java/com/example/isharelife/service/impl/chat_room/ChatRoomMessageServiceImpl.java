@@ -25,8 +25,8 @@ public class ChatRoomMessageServiceImpl implements IChatRoomMessageService {
     }
 
     @Override
-    public void save(ChatRoomMessage chatRoomMessage) {
-        chatRoomMessageRepository.save(chatRoomMessage);
+    public ChatRoomMessage save(ChatRoomMessage chatRoomMessage) {
+       return chatRoomMessageRepository.save(chatRoomMessage);
     }
 
     @Override

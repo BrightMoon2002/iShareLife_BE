@@ -25,8 +25,8 @@ public class ChatRoomAccountsServiceImpl implements IChatRoomAccountsService {
     }
 
     @Override
-    public void save(ChatRoomAccounts chatRoomAccounts) {
-        chatRoomAccountsRepository.save(chatRoomAccounts);
+    public ChatRoomAccounts save(ChatRoomAccounts chatRoomAccounts) {
+      return  chatRoomAccountsRepository.save(chatRoomAccounts);
     }
 
     @Override
