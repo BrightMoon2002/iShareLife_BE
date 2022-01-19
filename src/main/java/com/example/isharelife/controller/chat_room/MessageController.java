@@ -31,4 +31,9 @@ public class MessageController {
         Iterable<IMessageByAccountId> messageByAccountIds = messageService.findAllMessageByAccountId(id, id);
         return new ResponseEntity<>(messageByAccountIds, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<?> showAllMessage() {
+    Iterable<Message> showAllMessage
+    }
 }
