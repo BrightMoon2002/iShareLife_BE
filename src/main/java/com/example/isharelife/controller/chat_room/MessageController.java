@@ -34,6 +34,10 @@ public class MessageController {
 
     @GetMapping
     public ResponseEntity<?> showAllMessage() {
-    Iterable<Message> showAllMessage
+    Iterable<IMessageDTO> messages = messageService.findMessage();
+    if (messages == null) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 }
