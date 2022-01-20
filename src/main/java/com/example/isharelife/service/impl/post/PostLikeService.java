@@ -48,4 +48,9 @@ public class PostLikeService implements IPostLikeService {
     public Optional<PostLike> findPostLikeByPostingIdAndOwnerId(Long pId, Long accId) {
         return postLikeRepository.findPostLikeByPostingIdAndOwnerId(pId, accId);
     }
+
+    @Override
+    public Integer countLikeById(Long id) {
+        return postLikeRepository.countLikeById(id);
+    }
 }
