@@ -12,4 +12,6 @@ public interface IAccountService {
     Account save(Account account);
     Iterable<Account> findAll();
     Optional<Account> findAccountById(Long id);
+    Iterable<Account> findAccountsByNameContaining (String name);
+
 }

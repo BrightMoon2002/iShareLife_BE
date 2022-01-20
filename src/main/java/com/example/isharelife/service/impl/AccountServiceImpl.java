@@ -43,4 +43,9 @@ public class AccountServiceImpl implements IAccountService {
     public Optional<Account> findAccountById(Long id) {
         return accountRepository.findAccountById(id);
     }
+
+    @Override
+    public Iterable<Account> findAccountsByNameContaining(String name) {
+        return accountRepository.findAccountsByNameContaining(name);
+    }
 }

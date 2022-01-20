@@ -79,7 +79,8 @@ public class PostingRestController {
         List<Posting> list2 = new ArrayList<Posting>();
         List<RelationshipAccounts> relationshipAccounts1=(List<RelationshipAccounts>) relationshipAccounts;
         for (int i = 0; i < postings1.size(); i++) {
-            if(account.getId()==postings1.get(i).getOwner().getId()){
+            if(account.getId()==postings1.get(i).getOwner().getId()
+            ){
                 list2.add(postings1.get(i));
             }else {
                 for (int j = 0; j < relationshipAccounts1.size(); j++) {

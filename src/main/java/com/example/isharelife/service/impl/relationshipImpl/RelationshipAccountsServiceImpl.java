@@ -50,6 +50,10 @@ public class RelationshipAccountsServiceImpl implements IRelationshipAccountServ
         return relationshipAccountsRepository.findRelationshipAccountsByAccount1_IdAndAccount2_Id(id1,id2);
     }
 
+    @Override
+    public void changeIsShow(Long id) {
+        relationshipAccountsRepository.changeIsShow(id);
+    }
 
 
 //    @Override
