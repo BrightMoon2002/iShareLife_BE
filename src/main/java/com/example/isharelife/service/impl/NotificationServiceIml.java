@@ -25,8 +25,8 @@ public class NotificationServiceIml implements INotificationService {
     }
 
     @Override
-    public void save(Notification notification) {
-        notificationRepository.save(notification);
+    public Notification save(Notification notification) {
+       return notificationRepository.save(notification);
     }
 
     @Override

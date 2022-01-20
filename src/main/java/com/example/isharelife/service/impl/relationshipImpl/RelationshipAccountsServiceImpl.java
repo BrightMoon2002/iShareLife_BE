@@ -26,8 +26,8 @@ public class RelationshipAccountsServiceImpl implements IRelationshipAccountServ
     }
 
     @Override
-    public void save(RelationshipAccounts relationshipAccounts) {
-        relationshipAccountsRepository.save(relationshipAccounts);
+    public RelationshipAccounts save(RelationshipAccounts relationshipAccounts) {
+       return relationshipAccountsRepository.save(relationshipAccounts);
     }
 
     @Override

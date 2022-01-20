@@ -23,8 +23,8 @@ public class RelationshipTypeServiceImpl implements IRelationshipTypeService {
     }
 
     @Override
-    public void save(RelationshipType relationshipType) {
-        relationshipTypeRepository.save(relationshipType);
+    public RelationshipType save(RelationshipType relationshipType) {
+       return relationshipTypeRepository.save(relationshipType);
     }
 
     @Override

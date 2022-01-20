@@ -9,4 +9,5 @@ public interface IMessageDTO {
     String getDateSend();
     String getNameReceiver();
     String getNameSender();
+    Long getidReceiver();
 }

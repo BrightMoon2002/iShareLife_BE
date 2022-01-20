@@ -16,7 +16,9 @@ public class Message {
     private Long id;
     private String content;
     private LocalDateTime dateSend;
+    @Column(name = "id_sender")
+    private Long idSender;
+    @Column(name = "id_receiver")
+    private Long idReceiver;
 
-    private Long id_sender;
-    private Long id_receiver;
 }

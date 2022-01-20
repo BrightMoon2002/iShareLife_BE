@@ -26,8 +26,8 @@ public class MessageServiceImpl implements IMessageService {
     }
 
     @Override
-    public void save(Message message) {
-        messageSocketRepository.save(message);
+    public Message save(Message message) {
+        return messageSocketRepository.save(message);
     }
 
     @Override
