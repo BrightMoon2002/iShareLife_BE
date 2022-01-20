@@ -31,5 +31,5 @@ public class Notification {
     private Posting posting;
     private LocalDateTime date;
     private Boolean status;
-
+    private int type;
 }
