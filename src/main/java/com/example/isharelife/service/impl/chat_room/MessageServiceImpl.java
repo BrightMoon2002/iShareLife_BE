@@ -1,6 +1,8 @@
 package com.example.isharelife.service.impl.chat_room;
 
+import com.example.isharelife.dto.response.mesage.IMessageByAccountId;
 import com.example.isharelife.dto.response.mesage.IMessageDTO;
+import com.example.isharelife.dto.response.mesage.MessageAccountShow;
 import com.example.isharelife.model.chat_room.Message;
 import com.example.isharelife.repository.chat_room.IMessageSocketRepository;
 import com.example.isharelife.service.chat_room.IMessageService;
@@ -24,8 +26,8 @@ public class MessageServiceImpl implements IMessageService {
     }
 
     @Override
-    public void save(Message message) {
-        messageSocketRepository.save(message);
+    public Message save(Message message) {
+        return messageSocketRepository.save(message);
     }
 
     @Override
@@ -36,5 +38,15 @@ public class MessageServiceImpl implements IMessageService {
     @Override
     public Iterable<IMessageDTO> findAllMessageBySenderAndReceiver(Long id1, Long id2, Long id3, Long id4) {
         return messageSocketRepository.findAllMessageBySenderAndReceiver(id1, id2, id3, id4);
+    }
+
+    @Override
+    public Iterable<IMessageByAccountId> findAllMessageByAccountId(Long id1, Long id2) {
+        return messageSocketRepository.findAllMessageByAccountId(id1, id2);
+    }
+
+    @Override
+    public Iterable<IMessageDTO> findMessage() {
+        return messageSocketRepository.findMessage();
     }
 }

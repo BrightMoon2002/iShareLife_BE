@@ -26,8 +26,8 @@ public class CommentLikeService implements ICommentLikeService {
     }
 
     @Override
-    public void save(CommentLike commentLike) {
-        commentLikeRepository.save(commentLike);
+    public CommentLike save(CommentLike commentLike) {
+        return commentLikeRepository.save(commentLike);
     }
 
     @Override

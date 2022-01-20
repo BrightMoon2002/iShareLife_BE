@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,6 +21,12 @@ public interface IRelationshipAccountsRepository extends JpaRepository<Relations
 //    @Query(value = "select * from relationship_accounts where account1_id= :id1 and account2_id= :id2 ",nativeQuery = true)
 //    Optional<RelationshipAccounts> findRelationship(@Param("id1") int id1,@Param("id2") int id2);
     Optional<RelationshipAccounts> findRelationshipAccountsByAccount1_IdAndAccount2_Id(Long id1,Long id2);
+
+    @Modifying
+    @Transactional
+    @Query( value = "update accounts set is_show = !is_show where id = :id",nativeQuery = true)
+    void changeIsShow(@Param("id") Long id);
+
 
 
 //    @Modifying(clearAutomatically = true)

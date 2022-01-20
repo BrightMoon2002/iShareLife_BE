@@ -25,8 +25,8 @@ public class PostingCommentService implements IPostingCommentService {
     }
 
     @Override
-    public void save(PostingComment postingComment) {
-        postingCommentRepository.save(postingComment);
+    public PostingComment save(PostingComment postingComment) {
+        return postingCommentRepository.save(postingComment);
     }
 
     @Override

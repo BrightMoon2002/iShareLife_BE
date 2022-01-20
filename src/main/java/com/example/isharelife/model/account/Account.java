@@ -45,6 +45,7 @@ public class Account {
     private String hobbies;
     @ManyToOne
     private Gender gender;
+    private boolean isShow = true;
 
     public Account(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles) {
         this.id = id;
@@ -172,5 +173,13 @@ public class Account {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
     }
 }

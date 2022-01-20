@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 
 public interface IMessageDTO {
     Long getId();
+    Long getIdGuest();
     String getContent();
-    LocalDateTime getDateSend();
+    String getDateSend();
     String getNameReceiver();
     String getNameSender();
+    Long getidReceiver();
 }

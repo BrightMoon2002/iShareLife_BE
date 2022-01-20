@@ -93,4 +93,9 @@ public class PostLikeRestController {
         postLikeService.remove(postLike.getId());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
+
+    @GetMapping("/getTotalLike/{id}")
+    public ResponseEntity<?> getTotalLike(@PathVariable Long id) {
+        return new ResponseEntity<>(postLikeService.countLikeById(id), HttpStatus.OK);
+    }
 }

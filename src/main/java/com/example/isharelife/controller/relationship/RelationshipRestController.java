@@ -188,6 +188,15 @@ public class RelationshipRestController {
             }
         }
         return new ResponseEntity<>(0,HttpStatus.OK);
+    }
 
+    @PutMapping("/isShow")
+    public ResponseEntity<?> changeIsShow(){
+        Account account = accountDetailService.getCurrentUser();
+        if (account.getUsername().equals("anonymous")) {
+            return new ResponseEntity<>(new ResponseMessage("Please Login"), HttpStatus.OK);
+        }
+        relationshipAccountService.changeIsShow(account.getId());
+        return new ResponseEntity<>(new ResponseMessage("change is show complete"),HttpStatus.OK);
     }
 }

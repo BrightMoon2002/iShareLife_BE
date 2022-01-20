@@ -32,7 +32,7 @@ public class PostingService implements IPostingService {
     }
 
     @Override
-    public void save(Posting posting) {
+    public Posting save(Posting posting) {
         postingRepository.save(posting);
         if (posting.getImages() != null) {
             List<String> imageList;
@@ -43,6 +43,7 @@ public class PostingService implements IPostingService {
                 postingImageService.save(postingImage);
             }
         }
+        return posting;
     }
 
     @Override

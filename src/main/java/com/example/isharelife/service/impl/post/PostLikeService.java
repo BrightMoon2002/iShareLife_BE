@@ -25,8 +25,8 @@ public class PostLikeService implements IPostLikeService {
     }
 
     @Override
-    public void save(PostLike postLike) {
-        postLikeRepository.save(postLike);
+    public PostLike save(PostLike postLike) {
+        return postLikeRepository.save(postLike);
     }
 
     @Override
@@ -47,5 +47,10 @@ public class PostLikeService implements IPostLikeService {
     @Override
     public Optional<PostLike> findPostLikeByPostingIdAndOwnerId(Long pId, Long accId) {
         return postLikeRepository.findPostLikeByPostingIdAndOwnerId(pId, accId);
+    }
+
+    @Override
+    public Integer countLikeById(Long id) {
+        return postLikeRepository.countLikeById(id);
     }
 }
