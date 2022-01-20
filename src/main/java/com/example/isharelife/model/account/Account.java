@@ -1,5 +1,6 @@
 package com.example.isharelife.model.account;
 
+import com.example.isharelife.model.oauth.Provider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -23,16 +24,13 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Size(min = 3, max = 50)
     private String name;
-    @NotBlank
     @Size(min = 3, max = 50)
     private String username;
     @Email
     private String email;
     @JsonIgnore
-    @NotBlank
     @Size(min = 6, max = 100)
     private String password;
     @Lob
@@ -46,6 +44,9 @@ public class Account {
     @ManyToOne
     private Gender gender;
     private boolean isShow = true;
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+    private boolean enabled;
 
     public Account(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles) {
         this.id = id;
@@ -58,6 +59,23 @@ public class Account {
     }
 
     public Account() {
+    }
+
+    public Account(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles, String phone, String address, String hobbies, Gender gender, boolean isShow, Provider provider, boolean enabled) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.avatar = avatar;
+        this.roles = roles;
+        this.phone = phone;
+        this.address = address;
+        this.hobbies = hobbies;
+        this.gender = gender;
+        this.isShow = isShow;
+        this.provider = provider;
+        this.enabled = enabled;
     }
 
     public Account(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles, String phone, String address, String hobbies) {
@@ -181,5 +199,21 @@ public class Account {
 
     public void setShow(boolean show) {
         isShow = show;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

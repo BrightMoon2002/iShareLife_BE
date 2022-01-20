@@ -2,6 +2,8 @@ package com.example.isharelife.repository;
 
 import com.example.isharelife.model.account.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -14,4 +16,8 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     Account save(Account account);
     Optional<Account> findAccountById(Long id);
     Iterable<Account> findAccountsByNameContaining (String name);
+    @Query("SELECT u FROM Account u WHERE u.username = :username")
+    public Account getUserByUsername(@Param("username") String username);
+    @Query("SELECT u FROM Account u WHERE u.email = :email")
+    public Account getEmailByEmail(@Param("email") String email);
 }

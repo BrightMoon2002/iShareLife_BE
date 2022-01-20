@@ -107,6 +107,16 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
     }
+    @GetMapping("/signin-oauth")
+    public ResponseEntity<?> login() {
+
+        //kho chứa cho authentication
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String token = jwtProvider.createToken(authentication);
+        AccountPrinciple accountPrinciple = (AccountPrinciple) authentication.getPrincipal();
+
+        return ResponseEntity.ok(new JwtResponse(accountPrinciple.getId(), token, accountPrinciple.getName(), accountPrinciple.getAvatar(),  accountPrinciple.getUsername(), accountPrinciple.getEmail(), accountPrinciple.getAuthorities()));
+    }
     @GetMapping
     public ResponseEntity<?> showAllAccount() {
         Iterable<Account> accounts = accountService.findAll();
@@ -124,10 +134,6 @@ public class AuthController {
     @PutMapping("/change-avatar")
     public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatar changeAvatar){
         Account account = accountDetailService.getCurrentUser();
-        System.out.println(account.getUsername());
-        System.out.println(account.getName());
-        System.out.println(account.getAvatar());
-        System.out.println(account.getId());
         if(account.getUsername().equals("Anonymous")){
             return new ResponseEntity<>(new ResponseMessage("Please login!"), HttpStatus.OK);
         }
