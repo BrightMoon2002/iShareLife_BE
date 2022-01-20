@@ -182,4 +182,10 @@ public class AuthController {
             return new ResponseEntity<>(new ResponseMessage("success"), HttpStatus.OK);
         }
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchAccount(@RequestParam("name") String name){
+        Iterable<Account> accounts = accountService.findAccountsByNameContaining(name);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
 }
