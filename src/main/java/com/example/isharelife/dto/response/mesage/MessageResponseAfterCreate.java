@@ -4,6 +4,7 @@ public class MessageResponseAfterCreate {
     private Long id;
     private String content;
     private Long idGuest;
+    private Long idReceiver;
     private String dateSend;
     private String nameReceiver;
     private String nameSender;
@@ -11,10 +12,11 @@ public class MessageResponseAfterCreate {
     public MessageResponseAfterCreate() {
     }
 
-    public MessageResponseAfterCreate(Long id, String content, Long idGuest, String dateSend, String nameReceiver, String nameSender) {
+    public MessageResponseAfterCreate(Long id, String content, Long idGuest, Long idReceiver, String dateSend, String nameReceiver, String nameSender) {
         this.id = id;
         this.content = content;
         this.idGuest = idGuest;
+        this.idReceiver = idReceiver;
         this.dateSend = dateSend;
         this.nameReceiver = nameReceiver;
         this.nameSender = nameSender;
@@ -66,5 +68,13 @@ public class MessageResponseAfterCreate {
 
     public void setNameSender(String nameSender) {
         this.nameSender = nameSender;
+    }
+
+    public Long getIdReceiver() {
+        return idReceiver;
+    }
+
+    public void setIdReceiver(Long idReceiver) {
+        this.idReceiver = idReceiver;
     }
 }

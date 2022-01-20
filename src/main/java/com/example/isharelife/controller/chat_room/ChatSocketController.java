@@ -36,6 +36,7 @@ public class ChatSocketController {
         newMessage.setDateSend(LocalDateTime.now().toString());
         newMessage.setContent(messageResponse.getContent());
         newMessage.setIdGuest(messageResponse.getIdSender());
+        newMessage.setIdReceiver(messageResponse.getIdReceiver());
         newMessage.setId(message1.getId());
         messagingTemplate.convertAndSend("/topic/chat", newMessage);
     }
