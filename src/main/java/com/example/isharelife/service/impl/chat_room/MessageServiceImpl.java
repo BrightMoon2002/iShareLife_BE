@@ -44,4 +44,9 @@ public class MessageServiceImpl implements IMessageService {
     public Iterable<IMessageByAccountId> findAllMessageByAccountId(Long id1, Long id2) {
         return messageSocketRepository.findAllMessageByAccountId(id1, id2);
     }
+
+    @Override
+    public Iterable<IMessageDTO> findMessage() {
+        return messageSocketRepository.findMessage();
+    }
 }
