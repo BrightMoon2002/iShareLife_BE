@@ -24,8 +24,8 @@ public class PostingImageService implements IPostingImageService {
     }
 
     @Override
-    public void save(PostingImage postingImage) {
-        postingImageRepository.save(postingImage);
+    public PostingImage save(PostingImage postingImage) {
+        return postingImageRepository.save(postingImage);
     }
 
     @Override

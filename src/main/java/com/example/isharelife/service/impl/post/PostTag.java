@@ -23,8 +23,9 @@ public class PostTag implements IPostTagService {
     }
 
     @Override
-    public void save(com.example.isharelife.model.post.PostTag postTag) {
+    public com.example.isharelife.model.post.PostTag save(com.example.isharelife.model.post.PostTag postTag) {
         postTagRepository.save(postTag);
+        return postTag;
     }
 
     @Override
