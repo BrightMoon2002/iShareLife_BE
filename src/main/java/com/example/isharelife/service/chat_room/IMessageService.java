@@ -10,4 +10,5 @@ import com.example.isharelife.service.IGeneralService;
 public interface IMessageService extends IGeneralService<Message> {
     Iterable<IMessageDTO> findAllMessageBySenderAndReceiver(Long id1, Long id2, Long id3, Long id4);
     Iterable<IMessageByAccountId> findAllMessageByAccountId(Long id1, Long id2);
+    Iterable<IMessageDTO> findMessage();
 }
